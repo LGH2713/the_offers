@@ -1,8 +1,12 @@
 #pragma once
 #include <stack>
 #include <exception>
-
 using namespace std;
+
+/*
+* （跟Stack的区别）
+	两个stack可以同时有数据
+*/
 
 template <typename T> class CQueue
 {

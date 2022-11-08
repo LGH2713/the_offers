@@ -3,6 +3,11 @@
 #include <exception>
 using namespace std;
 
+/*
+* （跟Queue的区别）
+	两个队列必有一个为空，数据在两个队列中来回传递
+*/
+
 template <typename T> class CStack
 {
 public:
