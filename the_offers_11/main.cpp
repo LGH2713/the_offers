@@ -9,6 +9,9 @@
 #include <iostream>
 #include <exception>
 
+int MinInOrder(int* numbers, int index1, int index2);
+int Min(int* numbers, int length);
+
 int Min(int* numbers, int length)
 {
 	if (numbers == nullptr || length <= 0)
@@ -53,7 +56,7 @@ int MinInOrder(int* numbers, int index1, int index2)
 
 int main(int argc, char* argv)
 {
-	int spinArray[5] = { 4, 5, 1, 2, 3 };
+	int spinArray[5] = { 1, 0, 1, 1, 1 };
 	std::cout << Min(spinArray, sizeof(spinArray) / sizeof(spinArray[0])) << std::endl;
 	return 0;
 }
