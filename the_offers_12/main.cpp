@@ -8,6 +8,8 @@
 *		a	*b	t	g
 *		c	*f	*c	s
 *		j	d	*e	h
+* 
+*	解题关键：将一维数组看成二维数组，使用回溯法
 */
 
 #include<iostream>
