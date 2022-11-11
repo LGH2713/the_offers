@@ -25,13 +25,20 @@ char Matrix[12] = {
 
 bool hasPath(char* matrix, int rows, int cols, char* str)
 {
+	// 排除矩阵不存在，大小为0*0，判断字符串为空指针的情况
 	if (matrix == nullptr || rows < 1 || cols < 1 || str == nullptr)
 		return false;
 
+	// 设置访问矩阵，大小和字符矩阵相同
 	bool* visted = new bool[rows * cols];
+
+	// 访问矩阵置空
 	memset(visted, 0, rows * cols);
 
+	// 初始化路径长度
 	int pathLength = 0;
+
+	// 主循环，先行后列
 	for (int row = 0; row < rows; ++row)
 	{
 		for (int col = 0; col < cols; ++col)
@@ -48,35 +55,43 @@ bool hasPath(char* matrix, int rows, int cols, char* str)
 	return false;
 }
 
+// 核心代码
 bool hasPathCore(const char* matrix, int rows, int cols, int row, int col,
 	const char* str, int& pathLength, bool* visted)
 {
+	// 如果已经走到判断字符的末尾则认为路径存在，返回true
 	if (str[pathLength] == '\0')
 		return true;
 
 	bool hasPath = false;
-	if (row >= 0 && row < rows && cols >= 0 && col < cols
-		&& matrix[row * cols + col] == str[pathLength]
-		&& !visted[row * cols + col])
+	if (row >= 0 && row < rows && cols >= 0 && col < cols // 判断行列没有上溢和下溢
+		&& matrix[row * cols + col] == str[pathLength]    // 判断当前寻找字符与当前位置是否一致（主判断）
+		&& !visted[row * cols + col])					  // 判断该路径是否已经走过
 	{
-		++pathLength;
-		visted[row * cols + col] = true;
+		++pathLength;						// 找到相应字符，路径长度+1
+		visted[row * cols + col] = true;	// 标志位置，找过的位置置为真
 
+
+		// 继续寻找
 		hasPath = hasPathCore(matrix, rows, cols, row, col - 1,
-			str, pathLength, visted)
+			str, pathLength, visted)								// 向左走
 			|| hasPathCore(matrix, rows, cols, row - 1, col,
-				str, pathLength, visted)
+				str, pathLength, visted)							// 向上走
 			|| hasPathCore(matrix, rows, cols, row, col + 1,
-				str, pathLength, visted)
+				str, pathLength, visted)							// 向右走
 			|| hasPathCore(matrix, rows, cols, row + 1, col,
-				str, pathLength, visted);
+				str, pathLength, visted);							// 向下走
 
 		if (!hasPath)
 		{
+			// 若向下走的一步没有找到相应路径则找到路径长度-1（在下一步中加的pathLength，在这里找不到就要减回来）
+			// 同时标记该路径没有走过
 			--pathLength;
 			visted[row * cols + col] = false;
 		}
 	}
+
+	// 返回是否找到路径
 	return hasPath;
 }
 
