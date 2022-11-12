@@ -6,81 +6,15 @@
 
 #include<iostream>
 #include<exception>
+#include "solution_1.h"
+#include "solution_2.h"
 using namespace std;
 
-void PrintNumber(char* number);
-bool Increment(char* number);
-void Print1ToMaxOfNDigits(int n);
-
-void Print1ToMaxOfNDigits(int n)
-{
-	if (n <= 0)
-		return;
-
-	char* number = new char[n + 1];
-	memset(number, '0', n);
-	number[n] = '\0';
-
-	while (!Increment(number))
-	{
-		PrintNumber(number);
-	}
-
-	delete[] number;
-}
-
-bool Increment(char* number)
-{
-	bool isOverflow = false;
-	int nTakeOver = 0;
-	int nLength = strlen(number);
-	for (int i = nLength - 1; i >= 0; i--)
-	{
-		int nSum = number[i] - '0' + nTakeOver;
-		if (i == nLength - 1)
-			nSum++;
-
-		if (nSum >= 10)
-		{
-			if (i == 0)
-				isOverflow = true;
-			else
-			{
-				nSum -= 10;
-				nTakeOver = 1;
-				number[i] = '0' + nSum;
-			}
-		}
-		else
-		{
-			number[i] = '0' + nSum;
-			break;
-		}
-	}
-
-	return isOverflow;
-}
-
-void PrintNumber(char* number)
-{
-	bool isBeginning0 = true;
-	int nLength = strlen(number);
-
-	for (int i = 0; i < nLength; ++i)
-	{
-		if (isBeginning0 && number[i] != '0')
-			isBeginning0 = false;
-
-		if (!isBeginning0)
-		{
-			printf("%c", number[i]);
-		}
-	}
-
-	printf("\t");
-}
 
 int main(int argc, char* argv)
 {
-	Print1ToMaxOfNDigits(8);
+	Solution_1 *solution_1 = new Solution_1();
+	solution_1->Print1ToMaxOfNDigits(2);
+	Solution_2* solution_2 = new Solution_2();
+	solution_2->Print1ToMaxOfDigits(2);
 }
