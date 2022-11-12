@@ -16,6 +16,7 @@ struct ListNode
 
 #include <iostream>
 #include<exception>
+using namespace std;
 
 
 void DeleteNode(ListNode** pListHead, ListNode* pToBeDeleted)
@@ -54,29 +55,95 @@ void DeleteNode(ListNode** pListHead, ListNode* pToBeDeleted)
 	}
 }
 
-#include<unordered_map>
-using namespace std;
+#include"../List.h"
+// ====================测试代码====================
+void Test(ListNode* pListHead, ListNode* pNode)
+{
+    printf("The original list is: \n");
+    PrintList(pListHead);
+
+    printf("The node to be deleted is: \n");
+    PrintListNode(pNode);
+
+    DeleteNode(&pListHead, pNode);
+
+    printf("The result list is: \n");
+    PrintList(pListHead);
+}
+
+// 链表中有多个结点，删除中间的结点
+void Test1()
+{
+    ListNode* pNode1 = CreateListNode(1);
+    ListNode* pNode2 = CreateListNode(2);
+    ListNode* pNode3 = CreateListNode(3);
+    ListNode* pNode4 = CreateListNode(4);
+    ListNode* pNode5 = CreateListNode(5);
+
+    ConnectListNodes(pNode1, pNode2);
+    ConnectListNodes(pNode2, pNode3);
+    ConnectListNodes(pNode3, pNode4);
+    ConnectListNodes(pNode4, pNode5);
+
+    Test(pNode1, pNode3);
+
+    DestroyList(pNode1);
+}
+
+// 链表中有多个结点，删除尾结点
+void Test2()
+{
+    ListNode* pNode1 = CreateListNode(1);
+    ListNode* pNode2 = CreateListNode(2);
+    ListNode* pNode3 = CreateListNode(3);
+    ListNode* pNode4 = CreateListNode(4);
+    ListNode* pNode5 = CreateListNode(5);
+
+    ConnectListNodes(pNode1, pNode2);
+    ConnectListNodes(pNode2, pNode3);
+    ConnectListNodes(pNode3, pNode4);
+    ConnectListNodes(pNode4, pNode5);
+
+    Test(pNode1, pNode5);
+
+    DestroyList(pNode1);
+}
+
+// 链表中有多个结点，删除头结点
+void Test3()
+{
+    ListNode* pNode1 = CreateListNode(1);
+    ListNode* pNode2 = CreateListNode(2);
+    ListNode* pNode3 = CreateListNode(3);
+    ListNode* pNode4 = CreateListNode(4);
+    ListNode* pNode5 = CreateListNode(5);
+
+    ConnectListNodes(pNode1, pNode2);
+    ConnectListNodes(pNode2, pNode3);
+    ConnectListNodes(pNode3, pNode4);
+    ConnectListNodes(pNode4, pNode5);
+
+    Test(pNode1, pNode1);
+
+    DestroyList(pNode1);
+}
+
+// 链表中只有一个结点，删除头结点
+void Test4()
+{
+    ListNode* pNode1 = CreateListNode(1);
+
+    Test(pNode1, pNode1);
+}
+
+// 链表为空
+void Test5()
+{
+    Test(nullptr, nullptr);
+}
+
+
 int main(int argc, char* argv)
 {
-	unordered_multimap<string, int> multimap = {
-		{"hello", 1},
-		{"hello", 1},
-		{"hello", 3}
-	};
-
-	cout << "sizeof undered_multimap = " << multimap.count("hello") << endl;
-	auto it_1 = multimap.find("hello");
-	for (; it_1 != multimap.end(); ++it_1)
-		cout << "undered_multimap value = " << it_1->second << endl;
-
-	unordered_map<string, int> map = {
-		{"hello", 1},
-		{"hello", 1},
-		{"hello", 3}
-	};
-
-	cout << "sizeof undered_map = " << map.count("hello") << endl;
-	auto it_2 = map.find("hello");
-	for (; it_2 != map.end(); ++it_2)
-		cout << "undered_map value = " << it_2->second << endl;
+    Test1();
 }
